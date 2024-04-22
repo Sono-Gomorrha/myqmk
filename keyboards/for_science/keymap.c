@@ -22,7 +22,7 @@
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
     HD_RHODIUM,
-    _LAYER,
+    LAYER, // for now keeping the original from peej; got no better name for it atm
     _MOD_LAYER,
     _FUNCT
 };
@@ -40,10 +40,28 @@ uint8_t NUM_CUSTOM_SHIFT_KEYS =
     sizeof(custom_shift_keys) / sizeof(custom_shift_key_t);
 // end oƒ custom shifts
 
+// Custom keycodes, mainly for Home Row Mods (HRM)
+//Control
+#define CTL_C LCTL(KC_C)
+#define CTL_M RCTL(KC_M)
+//Alt / Option
+#define ALT_S LALT(KC_S)
+#define ALT_I RALT(KC_I)
+//Gui / Command
+#define GUI_N LGUI(KC_N)
+#define GUI_E RGUI(KC_E)
+//Shift
+#define SHFT_T LSFT_T(KC_T)
+#define SHFT_A RSFT_T(KC_A)
+
+// other custom codes
+#define LAY_SPC LT(_LAYER, KC_SPACE)
+// end of custom keycodes
+    
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /*
-*				Rhodium keymap according to https://sites.google.com/alanreiser.com/handsdown/home/hands-down-neu
+*	Rhodium keymap according to https://sites.google.com/alanreiser.com/handsdown/home/hands-down-neu
 *	'z bq  h  g  "   #@ .: /* j! x?  
 *	c  s  n  t  k   ,; a  e  i  m  
 *	p  f  l  d  v   -+ u  o  y  w  
@@ -69,15 +87,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                 `------------------------   `-Layer-----------------'
  */
 
+// For home row mods (HRM) I use CAGS (Ctrl - Alt/Option - Gui/Command - Shift)
 [HD_RHODIUM] = LAYOUT_split_4x5_3(
-    KC_TAB,  KC_ESC,  KC_LPRN, KC_LCBR, KC_LBRC,    KC_RBRC, KC_RCBR, KC_RPRN, KC_QUOT, KC_BSPC,
-    KC_QUOT, KC_B,    KC_H,    KC_G,    KC_DQUO,    abc,    KC_U,    KC_SLSH,    KC_J,    KC_X,
-    SFT_A,   KC_S,    KC_D,    KC_F,    KC_G,       KC_H,    KC_J,    KC_K,    KC_L,    KC_ENT,
-    SFT_Z,   LAY_X,   KC_C,    KC_V,    KC_B,       KC_N,    KC_M,    KC_COMM, KC_DOT,  LAY_SLS,
-                      KC_LCTL, KC_LGUI, KC_LALT,    LAY_SPC, LAYER,   KC_RSFT
+    KC_NO,   KC_ESC,    KC_NO,   KC_NO,   KC_NO,      KC_NO, 	KC_NO, 	   KC_NO, 	KC_NO,   KC_BSPC,
+    KC_QUOT, KC_B,    KC_H,    KC_G,    KC_DQUO,    KC_HASH,    KC_DOT,    KC_SLSH,     KC_J,    KC_X,
+    CTL_C,   ALT_S,   GUI_N,   SHFT_T,  KC_K,       KC_COMM,    SHFT_A,    GUI_E,    	ALT_I,   CTL_M,
+    KC_P,    KC_F,    KC_L,    KC_D,    KC_V,       KC_MINS,    KC_U,      KC_O, 	KC_Y,    KC_W,
+                      KC_LCTL, KC_R,    KC_ENT,     LAY_SPC,    LAY_SPC,   KC_RSFT
 ),
 
-[_LAYER] = LAYOUT_split_4x5_3(
+[LAYER] = LAYOUT_split_4x5_3(
     KC_TILD, KC_GRV,  KC_LABK, KC_UNDS, KC_MINS,    KC_PLUS, KC_EQL,  KC_RABK, KC_BSLS, KC_DEL,
     KC_1,    KC_2,    KC_3,    KC_4,    KC_5,       KC_6,    KC_7,    KC_8,    KC_9,    KC_0,
     SFT_F1,  KC_F2,   KC_F3,   KC_F4,   KC_F5,      KC_PGUP, KC_HOME, KC_UP,   KC_END,  KC_SCLN,

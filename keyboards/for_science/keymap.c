@@ -14,13 +14,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
+
 #include "features/custom_shift_keys.h"
 
-#define 
-
-
-// Defines names for use in layer keycodes and the keymap
-enum layer_names {
+enum layers {
     HD_RHODIUM,
     LAYER, // for now keeping the original from peej; got no better name for it atm
     _MOD_LAYER,
@@ -55,7 +52,7 @@ uint8_t NUM_CUSTOM_SHIFT_KEYS =
 #define SHFT_A RSFT_T(KC_A)
 
 // other custom codes
-#define LAY_SPC LT(_LAYER, KC_SPACE)
+#define LAY_SPC LT(LAYER, KC_SPACE)
 // end of custom keycodes
     
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {

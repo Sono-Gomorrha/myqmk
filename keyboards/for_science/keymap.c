@@ -1,4 +1,4 @@
-/* Copyright 2017 Paul James (paul@peej.co.uk)
+/* Copyright 2024 Mathias (sono.gomorrha@gmail.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,12 +16,12 @@
 #include QMK_KEYBOARD_H
 
 #include "features/custom_shift_keys.h"
+#include "keymap_us_international.h"
 
 enum layers {
     HD_RHODIUM,
     LAYER, // for now keeping the original from peej; got no better name for it atm
-    _MOD_LAYER,
-    _FUNCT
+    FUNCT
 };
 
 // custom shifts here | https://getreuer.info/posts/keyboards/custom-shift-keys/index.html
@@ -32,7 +32,7 @@ const custom_shift_key_t custom_shift_keys[] = {
   {KC_COMM, KC_SCLN}, // Shift , is ; 
   {KC_MINS, KC_PLUS}, // Shift - is + 
 };
-// ! and ? are missing so far (in Rhodium on j and x)
+
 uint8_t NUM_CUSTOM_SHIFT_KEYS =
     sizeof(custom_shift_keys) / sizeof(custom_shift_key_t);
 // end oƒ custom shifts
@@ -53,6 +53,8 @@ uint8_t NUM_CUSTOM_SHIFT_KEYS =
 
 // other custom codes
 #define LAY_SPC LT(LAYER, KC_SPACE)
+#define WIN_LCK LGUI(KC_L)
+#define MAC_LCK LGUI(LCTL(KC_Q))
 // end of custom keycodes
     
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -64,25 +66,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 *	p  f  l  d  v   -+ u  o  y  w  
 *				r   ␣  
 */
-
-/*
- * ,----------------------------------------   ----------------------------------------.
- * |  Tab  |  Esc  |   (   |   {   |   [   |   |   ]   |   }   |   )   |   '   | BkSp  |
- * |   ~   |   `   |   <   |   _   |   -   |   |   +   |   =   |   >   |   \   |  Del  |
- * |-------+-------+-------+-------+-------+   |-------+-------+-------+-------+-------|
- * |   Q   |   W   |   E   |   R   |   T   |   |   Y   |   U   |   I   |   O   |   P   |
- * |   1   |   2   |   3   |   4   |   5   |   |   6   |   7   |   8   |   9   |   0   |
- * |-------+-------+-------+-------+-------+   |-------+-------+-------+-------+-------|
- * |   A   |   S   |   D   |   F   |   G   |   |   H   |   J   |   K   |   L   | Enter |
- * |  F1   |  F2      F3   |  F4   |  F5   |   | PgUp  | Home  |  Up   |  End  |   ;   |
- * |-Shift-+-------+-------+-------+-------+   |-------+-------+-------+-------+-------|
- * |   Z   |   X   |   C   |   V   |   B   |   |   N   |   M   |   ,   |   .   |   /   |
- * |  F6   |  F7   |  F8   |  F9   |  F10  |   | PgDn  | Left  | Down  | Right |       |
- * `-Shift---Layer-+-------+-------+-------+   |-------+-------+-------+---------Layer-'
- *                 | Ctrl  |  Gui  |  Alt  |   | Space | Layer | Shift |
- *                 |       |       |       |   | Funct |       |       |
- *                 `------------------------   `-Layer-----------------'
- */
 
 // For home row mods (HRM) I use CAGS (Ctrl - Alt/Option - Gui/Command - Shift)
 [HD_RHODIUM] = LAYOUT_split_4x5_3(
@@ -101,39 +84,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       _______, _______, _______,    FUNCT,   _______, _______
 ),
 
-[_MOD_LAYER] = LAYOUT_split_4x5_3(
-    KC_TILD, _______, _______, _______, _______,    KC_Q,    _______, _______, _______, _______,
-    KC_TAB,  _______, _______, _______, _______,    _______, _______, _______, _______, _______,
+[FUNCT] = LAYOUT_split_4x5_3(
+    QK_BOOT,   _______, _______, _______, _______,  _______, _______, _______, _______, _______,
+    WIN_LCK, _______, _______, _______, _______,    MAC_LCK, _______, _______, _______, _______,
     _______, _______, _______, _______, _______,    _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______,    _______, _______, _______, _______, _______,
                       _______, _______, _______,    _______, _______, _______
 ),
 
-[_FUNCT] = LAYOUT_split_4x5_3(
-    QK_BOOT,   _______, _______, _______, LOCK,       MAC_LCK, _______, _______, _______, MAGIC_SWAP_LALT_LGUI,
-    _______, _______, _______, _______, _______,    _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______,    _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______,    _______, _______, _______, _______, _______,
-                      _______, _______, _______,    _______, _______, _______
-),
-
-};
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (get_mods() & MOD_MASK_CAG) {
-        if (record->event.pressed) {
-            layer_on(_MOD_LAYER);
-        } else {
-            layer_off(_MOD_LAYER);
-        }
-    }
-
-    if (record->event.pressed) {
-        if (keycode == KC_BSPC && (get_mods() & MOD_MASK_ALT)) {
-            tap_code(KC_DEL);
-            return false;
-        }
-    }
-
-    return true;
 };

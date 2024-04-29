@@ -53,8 +53,11 @@ uint8_t NUM_CUSTOM_SHIFT_KEYS =
 
 // other custom codes
 #define LAY_SPC LT(LAYER, KC_SPACE)
+#define FUNCT MO(FUNCT)
+#define SYM_R LT(SYMBOLS, KC_R)
 #define WIN_LCK LGUI(KC_L)
 #define MAC_LCK LGUI(LCTL(KC_Q))
+#define SCRSHOT LSG(KC_2)
 // end of custom keycodes
     
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -73,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_QUOT, KC_B,    KC_H,    KC_G,    KC_DQUO,    KC_HASH,    KC_DOT,    KC_SLSH,     KC_J,    KC_X,
     CTL_C,   ALT_S,   GUI_N,   SHFT_T,  KC_K,       KC_COMM,    SHFT_A,    GUI_E,    	ALT_I,   CTL_M,
     KC_P,    KC_F,    KC_L,    KC_D,    KC_V,       KC_MINS,    KC_U,      KC_O, 	KC_Y,    KC_W,
-                      KC_LCTL, KC_R,    KC_ENT,     LAY_SPC,    LAY_SPC,   KC_RSFT
+                      KC_LCTL, SYM_R,    KC_ENT,     KC_BSPC,    LAY_SPC,   KC_RSFT
 ),
 
 [LAYER] = LAYOUT_split_4x5_3(
@@ -81,6 +84,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_1,    KC_2,    KC_3,    KC_4,    KC_5,       KC_6,    KC_7,    KC_8,    KC_9,    KC_0,
     SFT_F1,  KC_F2,   KC_F3,   KC_F4,   KC_F5,      KC_PGUP, KC_HOME, KC_UP,   KC_END,  KC_SCLN,
     SFT_F6,  LAY_F7,  KC_F8,   KC_F9,   KC_F10,     KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, _______,
+                      _______, _______, _______,    FUNCT,   _______, _______
+),
+
+[SYMBOLS] = LAYOUT_split_4x5_3(
+    KC_TILD, KC_GRV,  KC_LABK, KC_UNDS, KC_MINS,    KC_PLUS, KC_EQL,  KC_RABK, KC_BSLS, KC_DEL,
+    _______, KC_LABK, KC_RABK, KC_BSLS, KC_GRV ,    KC_AMPR, ARROW  , KC_LBRC, KC_RBRC, _______,
+    KC_EXLM, KC_MINS, KC_PLUS, KC_EQL , KC_HASH,    KC_PIPE, KC_COLN, KC_LPRN, KC_RPRN, KC_PERC,
+    _______, KC_SLSH, KC_ASTR, KC_CIRC, SCRSHOT,    KC_TILD, KC_DLR , KC_LCBR, KC_RCBR, _______,
                       _______, _______, _______,    FUNCT,   _______, _______
 ),
 

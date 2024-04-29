@@ -87,8 +87,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       _______, _______, _______,    FUNCT,   _______, _______
 ),
 
+// Syombol layer stolen from Pascal Getreuer https://github.com/getreuer/qmk-keymap/blob/main/keyboards/handwired/dactyl_promicro/keymaps/getreuer/keymap.c
 [SYMBOLS] = LAYOUT_split_4x5_3(
-    KC_TILD, KC_GRV,  KC_LABK, KC_UNDS, KC_MINS,    KC_PLUS, KC_EQL,  KC_RABK, KC_BSLS, KC_DEL,
+    _______, _______,  _______, _______, _______,   _______, _______,  _______, _______, _______,
     _______, KC_LABK, KC_RABK, KC_BSLS, KC_GRV ,    KC_AMPR, ARROW  , KC_LBRC, KC_RBRC, _______,
     KC_EXLM, KC_MINS, KC_PLUS, KC_EQL , KC_HASH,    KC_PIPE, KC_COLN, KC_LPRN, KC_RPRN, KC_PERC,
     _______, KC_SLSH, KC_ASTR, KC_CIRC, SCRSHOT,    KC_TILD, KC_DLR , KC_LCBR, KC_RCBR, _______,

@@ -1,4 +1,4 @@
-
+SPLIT_KEYBOARD = yes
 COMBO_ENABLE = yes
 UNICODE_COMMON = yes
 
